@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Flight Search</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<div>
+    <br/>
+    <p th:text="${errorMessage}" style="color:red"></p>
+
+    <form action="#" th:action="@{/search}" th:object="${searchForm}" method="post">
+        Number Of Passengers : <input type="text" name="number" value="1"/>
+        <select id="from" name="from" required="required">
+            <option value="" disabled="disabled" selected="selected">From</option>
+            <option th:each="location : ${locations}" th:text="${location}" th:value="${location}"></option>
+        </select>
+        <select id="to" name="to" required="required">
+            <option value=""  disabled="disabled" selected="selected">To</option>
+            <option th:each="location : ${locations}" th:text="${location}"  th:value="${location}"></option>
+        </select>
+        <input type="submit" value="Find Flights"/>
+    </form>
+    <br/><br/>
+    <p th:text="'Booking for ' + ${passengernum}"></p>
+    <table border="1">
+        <th>Number</th>
+        <th>Seats</th>
+        <th>From</th>
+        <th>To</th>
+        <tr th:each="flight:${flights}">
+           <td th:text="${flight.number}"></td>
+            <td th:text="${flight.plane.numberOfSeats}"></td>
+           <td th:text="${flight.source}"></td>
+           <td th:text="${flight.destination}"></td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>
